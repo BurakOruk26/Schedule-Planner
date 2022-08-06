@@ -11,7 +11,7 @@ public class Course {
 
     // variables
     private String name;
-    private String instructor;
+    private String instructor; // makes it easier for the student to recognize this Course, nothing more
     private int section;
     private ArrayList<Lesson> lessons;
 
