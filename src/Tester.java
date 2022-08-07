@@ -8,17 +8,16 @@ public class Tester {
     private int[][] schedule;
     private ArrayList<Course> courses;
     private final int DAYS = 7;
-    private final int LESSONS = 11;
+    private final int TIME = 11;
 
     public Tester(){
-        schedule = new int[DAYS][LESSONS];
+        schedule = new int[DAYS][TIME];
         emptySchedule();
         courses = new ArrayList<Course>();
     }
 
     public Tester ( ArrayList<Course> courses ){
-        schedule = new int[DAYS][LESSONS];
-        emptySchedule();
+        this();
         this.courses = courses;
     }
 
@@ -34,10 +33,17 @@ public class Tester {
     }
 
     /**
-     * increments the spaces in schedule by "1", according to the "Lesson"s in the given "Course" object
+     * Modifies the spaces of "Lesson"s in given Course object, according to the boolean "add".
+     * Increments the number at place if the boolean "add" is true, decrement if false.
      * @param course
      */
-    private void schedule( Course course ){
+    private void scheduleCourse( Course course, Boolean add ){
+        if ( (add && courses.contains(course)) || (!add && !courses.contains(course)) ){return;}
+
+        int operation;
+        if (add) {operation = 1;}
+        else {operation = -1;}
+
         int day;
         int time;
 
@@ -45,7 +51,23 @@ public class Tester {
             day = lesson.getDay();
             time = lesson.getTime();
 
-            schedule[day][time]++;
+            schedule[day][time]+=operation;
         }
     }
+
+    public void addCourse( Course course ){
+        courses.add( course );
+        scheduleCourse( course, true );
+    }
+
+    public void removeCourse( Course course ){
+        courses.remove( course );
+        scheduleCourse( course, false);
+    }
+
+    /* METHOD */
+    /* SOMEHOW detects all the enabled courses and schedules them*/
+
+    /* METHOD */
+    /* prints out the schedule with different symbols for different availabilities */
 }
