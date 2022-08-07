@@ -4,19 +4,19 @@ import java.util.ArrayList;
  * This class provides utilities for testing Lesson and Course classes.
  * Planner class will have the same functionalities as this class, however it will also visualize the process.
  */
-public class Tester {
+public class Schedule {
     private int[][] schedule;
     private ArrayList<Course> courses;
     private final int DAYS = 7;
     private final int TIME = 11;
 
-    public Tester(){
+    public Schedule(){
         schedule = new int[DAYS][TIME];
         emptySchedule();
         courses = new ArrayList<Course>();
     }
 
-    public Tester ( ArrayList<Course> courses ){
+    public Schedule(ArrayList<Course> courses ){
         this();
         this.courses = courses;
     }
@@ -70,4 +70,21 @@ public class Tester {
 
     /* METHOD */
     /* prints out the schedule with different symbols for different availabilities */
+
+    /**
+     * Returns the schedule as columns being days and rows being times.
+     * @return
+     */
+    public String toString(){
+        String plan = "";
+        int time = 0;
+        while ( time < TIME ){
+            for ( int day = 0; day < DAYS; day++){
+                plan += schedule[day][time];
+            }
+            plan += "\n";
+            time++;
+        }
+        return plan;
+    }
 }
