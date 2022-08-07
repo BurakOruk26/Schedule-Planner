@@ -41,7 +41,7 @@ public class Schedule {
      * Increments the number at place if the boolean "add" is true, decrement if false.
      */
     private void scheduleCourse( Course course, Boolean add ){
-        if ( (add && courses.contains(course)) || (!add && !courses.contains(course)) ){return;}
+        //if ( (add && courses.contains(course)) || (!add && !courses.contains(course)) ){return;}
 
         int operation;
         if (add) {operation = 1;}
@@ -83,6 +83,7 @@ public class Schedule {
         while ( time < TIME ){
             for ( int day = 0; day < DAYS; day++){
                 plan += schedule[day][time];
+                plan += " ";
             }
             plan += "\n";
             time++;
