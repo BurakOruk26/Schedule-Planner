@@ -18,7 +18,11 @@ public class Schedule {
 
     public Schedule(ArrayList<Course> courses ){
         this();
+
         this.courses = courses;
+        for ( Course course : courses ){
+            scheduleCourse(course, true);
+        }
     }
 
     /**
@@ -35,7 +39,6 @@ public class Schedule {
     /**
      * Modifies the spaces of "Lesson"s in given Course object, according to the boolean "add".
      * Increments the number at place if the boolean "add" is true, decrement if false.
-     * @param course
      */
     private void scheduleCourse( Course course, Boolean add ){
         if ( (add && courses.contains(course)) || (!add && !courses.contains(course)) ){return;}
@@ -73,7 +76,6 @@ public class Schedule {
 
     /**
      * Returns the schedule as columns being days and rows being times.
-     * @return
      */
     public String toString(){
         String plan = "";
