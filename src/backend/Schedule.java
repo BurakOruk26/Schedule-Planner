@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class Schedule {
     private int[][] schedule;
     private ArrayList<Course> courses;
-    private final int DAYS = 7;
-    private final int TIME = 11;
+    public static final int DAYS = 7;
+    public static final int TIME = 11;
 
     public Schedule(){
         schedule = new int[DAYS][TIME];
