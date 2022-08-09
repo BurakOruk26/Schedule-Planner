@@ -42,7 +42,8 @@ public class Testing {
         c.add(c3);
 
         //
-        Schedule s = new Schedule(c);
+        Schedule s = new Schedule();
+        s.addCourse(c);
 
         // there should be conflicts
         System.out.println( "*".repeat(50) );

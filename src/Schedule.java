@@ -16,15 +16,6 @@ public class Schedule {
         courses = new ArrayList<Course>();
     }
 
-    public Schedule(ArrayList<Course> courses ){
-        this();
-
-        this.courses = courses;
-        for ( Course course : courses ){
-            scheduleCourse(course, true);
-        }
-    }
-
     /**
      * Assigns all the spaces of the array "schedule" to "0";
      */
@@ -40,8 +31,10 @@ public class Schedule {
      * Modifies the spaces of "Lesson"s in given Course object, according to the boolean "add".
      * Increments the number at place if the boolean "add" is true, decrement if false.
      */
-    private void scheduleCourse( Course course, Boolean add ){
-        //if ( (add && courses.contains(course)) || (!add && !courses.contains(course)) ){return;}
+    private boolean scheduleCourse( Course course, Boolean add ){
+        // the following line of code checks if the course to be added is already been added or the opposite,
+        // in those situations it returns false and stops the process
+        if ( (add && courses.contains(course)) || (!add && !courses.contains(course)) ){return false;}
 
         int operation;
         if (add) {operation = 1;}
@@ -56,16 +49,28 @@ public class Schedule {
 
             schedule[day][time]+=operation;
         }
+
+        return true;
     }
 
     public void addCourse( Course course ){
-        courses.add( course );
-        scheduleCourse( course, true );
+        if (scheduleCourse( course, true ))
+            courses.add( course );
+    }
+    public void addCourse( ArrayList<Course> courses){
+        for ( Course course : courses){
+            addCourse(course);
+        }
     }
 
     public void removeCourse( Course course ){
-        courses.remove( course );
-        scheduleCourse( course, false);
+        if (scheduleCourse( course, false))
+            courses.remove( course );
+    }
+    public void removeCourse( ArrayList<Course> courses){
+        for ( Course course : courses){
+            removeCourse(course);
+        }
     }
 
     /* METHOD */
