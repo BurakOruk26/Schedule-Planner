@@ -1,3 +1,4 @@
+package backend;
 /**
  * This class stores when a lesson is going to happen and has a boolean "active" to make the job of "Planner" class easier.
  * The class "Course" will use multiple instances of class "Lesson" to store data of when the courses will happen.

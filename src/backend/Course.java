@@ -1,3 +1,4 @@
+package backend;
 /**
  * To imitate the schedule of a real life course this class will contain multiple "Lesson" class instances,
  * stored in an ArrayList.
