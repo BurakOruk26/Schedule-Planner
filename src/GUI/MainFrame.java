@@ -7,22 +7,33 @@ public class MainFrame extends JFrame {
     private JPanel utilities;
     private JButton addCourse;
     private JPanel lessonSelection; // will be changed to a custom-made class
-    private JPanel scheduleViewer;
+    private JPanel viewerPanel;
+    private ScheduleViewer scheduleViewer;
+
+    public static final int FRAME_WIDTH = 1500;
+    public static final int HEIGHT = 900;      
+    public static final int VIEWER_WIDTH = 1100;
+    public static final int VIEWER_GAP = 70;
+    public static final int UTILITIES_WIDTH = FRAME_WIDTH - VIEWER_WIDTH;
 
     public MainFrame(){
 
         this.setLayout( new FlowLayout(FlowLayout.CENTER, 0,0) );
 
-        // setting "scheduleViewer"
-        scheduleViewer = new JPanel();
-        scheduleViewer.setLayout(new FlowLayout(FlowLayout.CENTER,70,70));
-        scheduleViewer.setPreferredSize(new Dimension(1100,900));
-        scheduleViewer.setBackground(Color.DARK_GRAY);
+        // setting "viewerPanel"
+        viewerPanel = new JPanel();
+        viewerPanel.setLayout(new FlowLayout( FlowLayout.CENTER, VIEWER_GAP, VIEWER_GAP ));
+        viewerPanel.setPreferredSize(new Dimension( VIEWER_WIDTH, HEIGHT ));
+        viewerPanel.setBackground(Color.DARK_GRAY);
+
+        // initializing and adding ScheduleViewer object to "viewerPanel"
+        scheduleViewer = new ScheduleViewer();
+        viewerPanel.add(scheduleViewer);   
 
         // setting the "utilities"
         utilities = new JPanel();
         utilities.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 50));
-        utilities.setPreferredSize(new Dimension(400,900));
+        utilities.setPreferredSize(new Dimension( UTILITIES_WIDTH, HEIGHT ));
         utilities.setBackground( new Color(90,30,30));
 
         addCourse = new JButton("Add Course");
@@ -38,7 +49,7 @@ public class MainFrame extends JFrame {
         utilities.add(lessonSelection);
 
         // adding the components to the frame
-        this.add(scheduleViewer);
+        this.add(viewerPanel);
         this.add(utilities);
 
         // making our JFrame intact
