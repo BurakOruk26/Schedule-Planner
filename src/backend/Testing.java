@@ -1,6 +1,8 @@
 package backend;
 import java.util.ArrayList;
 
+import gui.MainFrame;
+
 public class Testing {
     public static void main(String[] args) {
 
@@ -49,18 +51,28 @@ public class Testing {
         // there should be conflicts
         System.out.println( "*".repeat(50) );
         System.out.println( s );
+        //
+        MainFrame mf1 = new MainFrame();
+        mf1.setSchedule(s);
+        mf1.setVisible(true);
 
         // removing second course, no conflicts
         s.removeCourse( c2 );
         System.out.println( "*".repeat(50) );
         System.out.println( s );
+        //
+        MainFrame mf2 = new MainFrame();
+        mf2.setSchedule(s);
+        mf2.setVisible(true);
 
         // adding second course back and removing third course, no conflicts
         s.addCourse( c2 );
         s.removeCourse( c3 );
         System.out.println( "*".repeat(50) );
         System.out.println( s );
-
-         //
+        //
+        MainFrame mf3 = new MainFrame();
+        mf3.setSchedule(s);
+        mf3.setVisible(true);
     }
 }

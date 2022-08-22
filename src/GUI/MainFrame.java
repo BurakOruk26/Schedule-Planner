@@ -3,6 +3,8 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 
+import backend.Schedule;
+
 public class MainFrame extends JFrame {
     private JPanel utilities;
     private JButton addCourse;
@@ -62,6 +64,16 @@ public class MainFrame extends JFrame {
     public MainFrame(String name){
         this();
         this.setTitle(name);
+    }
+
+    public void setSchedule(Schedule schedule){
+        scheduleViewer.setSchedule(schedule);
+        scheduleViewer.updateSchedule();
+    }
+
+    // probably won't need this
+    public void updateSchedule(){
+        scheduleViewer.updateSchedule();
     }
 
     public static void main(String[] args) {

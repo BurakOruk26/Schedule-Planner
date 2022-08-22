@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Dimension;
 
-import backend.*;
+import backend.Schedule;
 
 /**
  * ScheduleViewer
@@ -13,12 +13,12 @@ import backend.*;
 public class ScheduleViewer extends JPanel {
     private final int COLOR_GAP = 5;
     private GridLayout layout;
-    private Schedule schedule;
+    private Schedule mySchedule;
     private JLabel[][] colors;
 
     public static final Color AVAILABLE = new Color(40,40,40);
-    public static final Color TAKEN = new Color(65,120,50);
-    public static final Color CONFLICT = new Color(100,50,50);
+    public static final Color TAKEN = new Color(65,130,50);
+    public static final Color CONFLICT = new Color(130,50,50);
     /*public static final Dimension spaceSize = new Dimension(); */
     private final int DAYS = Schedule.DAYS;
     private final int TIMES = Schedule.TIME;
@@ -29,16 +29,16 @@ public class ScheduleViewer extends JPanel {
         /* 
          *  leaving gap between componenets and setting a background to make the view more distinguishable 
          */
-        this.layout = new GridLayout(TIMES,DAYS);
-        layout.setHgap(COLOR_GAP); 
-        layout.setVgap(COLOR_GAP);
+        this.layout = new GridLayout( TIMES, DAYS );
+        layout.setHgap( COLOR_GAP ); 
+        layout.setVgap( COLOR_GAP );
         this.setLayout( layout );
 
         this.setBackground(new Color(120,120,120));
 
         // calculating the size of a JLabel to be put on "colors" array
-        int width = MainFrame.VIEWER_WIDTH - ( MainFrame.VIEWER_GAP * 2 ); // one gap at the top one at the bottom
         int height = MainFrame.HEIGHT - ( (COLOR_GAP * (TIMES + 1)) + (MainFrame.VIEWER_GAP * 2) );
+        int width = MainFrame.VIEWER_WIDTH - ( MainFrame.VIEWER_GAP * 2 );
 
         /*
          * but what about integer division ?
@@ -62,10 +62,37 @@ public class ScheduleViewer extends JPanel {
         // some crazy thing that extending JLabel requires
     }
 
+    /**
+     * this methods checks all the places onn the schedule and updates the color of the tile if needed
+     */
+    public void updateSchedule(){
+        int[][] schedule = mySchedule.getSchedule();
+
+        JLabel color;
+        int status;
+
+        for (int i = 0; i < schedule.length; i++){
+            for (int j = 0; j < schedule[0].length; j++){
+                color = colors[i][j];
+                status = schedule[i][j];
+
+                if (status == Schedule.AVAILABLE && !(color.getBackground().equals(AVAILABLE)) ){
+                    color.setBackground(AVAILABLE);
+                }
+                else if (status == Schedule.TAKEN  && !(color.getBackground().equals(TAKEN)) ){
+                    color.setBackground(TAKEN);
+                }
+                else if (status >= Schedule.CONFLICT  && !(color.getBackground().equals(CONFLICT)) ){
+                    color.setBackground(CONFLICT);
+                }
+            }
+        }
+    }
+
     public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
+        this.mySchedule = schedule;
     }
     public Schedule getSchedule() {
-        return schedule;
+        return mySchedule;
     }
 }
