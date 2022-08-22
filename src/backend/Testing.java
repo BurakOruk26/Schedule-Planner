@@ -11,28 +11,28 @@ public class Testing {
         Course c3 =new Course("CS3", "Burk", 3);
 
 
-        c1.addLesson( new Lesson( Lesson.MONDAY, Lesson.EIGHT_THIRTY ) );
-        c1.addLesson( new Lesson( Lesson.MONDAY, Lesson.NINE_THIRTY ) );
-        c1.addLesson( new Lesson( Lesson.MONDAY, Lesson.TEN_THIRTY ) );
-        c1.addLesson( new Lesson( Lesson.MONDAY, Lesson.ELEVEN_THIRTY ) );
+        c1.addLesson( new Lesson( Lesson.EIGHT_THIRTY, Lesson.MONDAY ) );
+        c1.addLesson( new Lesson( Lesson.NINE_THIRTY, Lesson.MONDAY ) );
+        c1.addLesson( new Lesson( Lesson.TEN_THIRTY, Lesson.MONDAY ) );
+        c1.addLesson( new Lesson( Lesson.ELEVEN_THIRTY, Lesson.MONDAY ) );
         /*
         for (Lesson lesson : c.get(0).getLessons()){
             System.out.println( lesson.getDay() + "," + lesson.getTime());
         } */
 
-        c2.addLesson( new Lesson( Lesson.TUESDAY, Lesson.ONE_THIRTY ) );
-        c2.addLesson( new Lesson( Lesson.TUESDAY, Lesson.TWO_THIRTY ) );
-        c2.addLesson( new Lesson( Lesson.TUESDAY, Lesson.THREE_THIRTY ) );
-        c2.addLesson( new Lesson( Lesson.TUESDAY, Lesson.FOUR_THIRTY ) );
+        c2.addLesson( new Lesson( Lesson.ONE_THIRTY, Lesson.TUESDAY ) );
+        c2.addLesson( new Lesson( Lesson.TWO_THIRTY, Lesson.TUESDAY ) );
+        c2.addLesson( new Lesson( Lesson.THREE_THIRTY, Lesson.TUESDAY ) );
+        c2.addLesson( new Lesson( Lesson.FOUR_THIRTY, Lesson.TUESDAY ) );
         /*
         for (Lesson lesson : c.get(1).getLessons()){
             System.out.println( lesson.getDay() + "," + lesson.getTime());
         }*/
 
-        c3.addLesson( new Lesson( Lesson.TUESDAY, Lesson.THREE_THIRTY ) );
-        c3.addLesson( new Lesson( Lesson.TUESDAY, Lesson.FOUR_THIRTY ) );
-        c3.addLesson( new Lesson( Lesson.WEDNESDAY, Lesson.EIGHT_THIRTY ) );
-        c3.addLesson( new Lesson( Lesson.WEDNESDAY, Lesson.NINE_THIRTY ) );
+        c3.addLesson( new Lesson( Lesson.THREE_THIRTY, Lesson.TUESDAY ) );
+        c3.addLesson( new Lesson( Lesson.FOUR_THIRTY, Lesson.TUESDAY ) );
+        c3.addLesson( new Lesson( Lesson.EIGHT_THIRTY, Lesson.WEDNESDAY ) );
+        c3.addLesson( new Lesson( Lesson.NINE_THIRTY, Lesson.WEDNESDAY ) );
         /*
         for (Lesson lesson : c.get(2).getLessons()){
             System.out.println( lesson.getDay() + "," + lesson.getTime());

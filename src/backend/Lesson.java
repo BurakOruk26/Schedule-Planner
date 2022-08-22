@@ -34,7 +34,7 @@ public class Lesson {
     private int time;
     private boolean active;
 
-    public Lesson( int day, int time ){
+    public Lesson( int time, int day ){
         this.day = day;
         this.time = time;
         this.active = false; //this is false by default to prevent unnecessary clashes

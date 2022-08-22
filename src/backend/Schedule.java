@@ -12,7 +12,7 @@ public class Schedule {
     public static final int TIME = 11;
 
     public Schedule(){
-        schedule = new int[DAYS][TIME];
+        schedule = new int[TIME][DAYS];
         emptySchedule();
         courses = new ArrayList<Course>();
     }
@@ -21,8 +21,8 @@ public class Schedule {
      * Assigns all the spaces of the array "schedule" to "0";
      */
     private void emptySchedule(){
-        for ( int i = 0; i < schedule.length; i++ ){
-            for ( int j = 0; j < schedule[0].length; j++){
+        for ( int i = 0; i < TIME; i++ ){
+            for ( int j = 0; j < DAYS ; j++){
                 schedule[i][j] = 0;
             }
         }
@@ -48,7 +48,7 @@ public class Schedule {
             day = lesson.getDay();
             time = lesson.getTime();
 
-            schedule[day][time]+=operation;
+            schedule[time][day]+=operation;
         }
 
         return true;
@@ -85,6 +85,15 @@ public class Schedule {
      */
     public String toString(){
         String plan = "";
+
+        for (int i = 0; i < TIME; i++){
+            for (int j = 0; j < DAYS; j++){
+                plan += schedule[i][j];
+            }
+            plan += "\n";
+        }
+
+        /*
         int time = 0;
         while ( time < TIME ){
             for ( int day = 0; day < DAYS; day++){
@@ -93,7 +102,7 @@ public class Schedule {
             }
             plan += "\n";
             time++;
-        }
+        }*/
         return plan;
     }
 }

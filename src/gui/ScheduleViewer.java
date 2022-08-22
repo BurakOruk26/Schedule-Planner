@@ -11,6 +11,7 @@ import backend.*;
  * ScheduleViewer
  */
 public class ScheduleViewer extends JPanel {
+    private final int COLOR_GAP = 5;
     private GridLayout layout;
     private Schedule schedule;
     private JLabel[][] colors;
@@ -20,7 +21,7 @@ public class ScheduleViewer extends JPanel {
     public static final Color CONFLICT = new Color(100,50,50);
     /*public static final Dimension spaceSize = new Dimension(); */
     private final int DAYS = Schedule.DAYS;
-    private final int TIME = Schedule.TIME;
+    private final int TIMES = Schedule.TIME;
     
     public ScheduleViewer(){
 
@@ -28,33 +29,33 @@ public class ScheduleViewer extends JPanel {
         /* 
          *  leaving gap between componenets and setting a background to make the view more distinguishable 
          */
-        this.layout = new GridLayout(DAYS,TIME);
-        layout.setHgap(5); 
-        layout.setVgap(5);
+        this.layout = new GridLayout(TIMES,DAYS);
+        layout.setHgap(COLOR_GAP); 
+        layout.setVgap(COLOR_GAP);
         this.setLayout( layout );
 
         this.setBackground(new Color(120,120,120));
 
         // calculating the size of a JLabel to be put on "colors" array
         int width = MainFrame.VIEWER_WIDTH - ( MainFrame.VIEWER_GAP * 2 ); // one gap at the top one at the bottom
-        int height = MainFrame.HEIGHT - ( MainFrame.VIEWER_GAP * 2 );
+        int height = MainFrame.HEIGHT - ( (COLOR_GAP * (TIMES + 1)) + (MainFrame.VIEWER_GAP * 2) );
 
         /*
          * but what about integer division ?
          */
         int labelWidth = width / DAYS;
-        int labelHeight = height / TIME;
+        int labelHeight = height / TIMES;
 
         // setting all the spaces in "colors" to JLabels in required size and the color AVAILABLE
-        this.colors = new JLabel[DAYS][TIME];
-        for ( int i = 0; i < DAYS; i++ ){
-            for ( int j = 0; j < TIME; j++){  
+        this.colors = new JLabel[TIMES][DAYS];
+        for ( int i = 0; i < TIMES; i++ ){
+            for ( int j = 0; j < DAYS; j++){  
                 JLabel color = new JLabel();
                 color.setPreferredSize( new Dimension (labelWidth, labelHeight));
                 color.setBackground(AVAILABLE);
                 color.setOpaque(true);              
                 colors[i][j] = color;
-                this.add(color, j, i); // the place is just a guess, might not work as intended ( DOES NOT WORK)
+                this.add(color);
             }
         }
 
