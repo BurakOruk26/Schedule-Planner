@@ -79,6 +79,14 @@ public class Schedule {
         }
     }
 
+    public boolean contains( Course course ){
+        return courses.contains(course);
+    }
+
+    public ArrayList<Course> getCourses() {
+        return courses;
+    }
+
     /* METHOD */
     /* SOMEHOW detects all the enabled courses and schedules them*/
 

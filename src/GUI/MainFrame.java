@@ -8,7 +8,7 @@ import backend.Schedule;
 public class MainFrame extends JFrame {
     private JPanel utilities;
     private JButton addCourse;
-    private JPanel lessonSelection; // will be changed to a custom-made class
+    private CourseSelection courseSelection; // will be changed to a custom-made class
     private JPanel viewerPanel;
     private ScheduleViewer scheduleViewer;
 
@@ -33,6 +33,7 @@ public class MainFrame extends JFrame {
         viewerPanel.add(scheduleViewer);   
 
         // setting the "utilities"
+
         utilities = new JPanel();
         utilities.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 50));
         utilities.setPreferredSize(new Dimension( UTILITIES_WIDTH, HEIGHT ));
@@ -43,12 +44,13 @@ public class MainFrame extends JFrame {
         addCourse.setBackground( new Color(90,50,50));
         addCourse.setForeground(new Color(150,130,130));
 
-        lessonSelection = new JPanel();
-        lessonSelection.setPreferredSize(new Dimension(350,650));
-        lessonSelection.setBackground( new Color(55,30,30));
+        // setting "courseSelection"
+        courseSelection = new CourseSelection();
+        courseSelection.setPreferredSize(new Dimension(350,650));
+        courseSelection.getViewport().setBackground( new Color(55,30,30));
 
         utilities.add(addCourse);
-        utilities.add(lessonSelection);
+        utilities.add(courseSelection);
 
         // adding the components to the frame
         this.add(viewerPanel);
@@ -69,6 +71,8 @@ public class MainFrame extends JFrame {
     public void setSchedule(Schedule schedule){
         scheduleViewer.setSchedule(schedule);
         scheduleViewer.updateSchedule();
+
+        courseSelection.setActiveCourses(schedule);
     }
 
     // probably won't need this
