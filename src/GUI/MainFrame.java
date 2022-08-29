@@ -18,6 +18,10 @@ public class MainFrame extends JFrame {
     public static final int VIEWER_GAP = 70;
     public static final int UTILITIES_WIDTH = FRAME_WIDTH - VIEWER_WIDTH;
 
+    public final int C_BOX_HEIGHT = 25;
+    public final int SELECTION_PANEL_WIDTH = 350;
+    public final int SELECTION_PANEL_HEIGHT = 650;
+
     public MainFrame(){
 
         this.setLayout( new FlowLayout(FlowLayout.CENTER, 0,0) );
@@ -45,9 +49,9 @@ public class MainFrame extends JFrame {
         addCourse.setForeground(new Color(150,130,130));
 
         // setting "courseSelection"
-        courseSelection = new CourseSelection();
-        courseSelection.setPreferredSize(new Dimension(350,650));
-        courseSelection.getViewport().setBackground( new Color(55,30,30));
+        courseSelection = new CourseSelection( SELECTION_PANEL_WIDTH, C_BOX_HEIGHT );
+        courseSelection.setPreferredSize(new Dimension(SELECTION_PANEL_WIDTH, SELECTION_PANEL_HEIGHT));
+        courseSelection.setBackground( new Color(55,30,30));
 
         utilities.add(addCourse);
         utilities.add(courseSelection);
