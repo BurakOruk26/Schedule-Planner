@@ -17,10 +17,10 @@ import javax.swing.JScrollBar;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
+import java.awt.Color;
 
 public class CourseSelection extends JPanel{
     private ArrayList<Course> allCourses;
-    private ArrayList<JCheckBox> checkBoxes;
     private Schedule activeCourses;
 
     private final int H_GAP = 10;
@@ -28,25 +28,22 @@ public class CourseSelection extends JPanel{
     private int checkboxHeight;
     private int checkboxWidth;
     private Dimension checkboxSize;
+    private Color cboxBackground;
+    private Color cboxForeground;
 
     private boolean scrollbar;
 
-    public CourseSelection( int checkboxWidth, int checkboxHeight){
+    public CourseSelection( int checkboxWidth, int checkboxHeight, Color checkboxBackgraund, Color checkboxForeground){
 
         this.checkboxWidth = checkboxWidth - 2*H_GAP;
         this.checkboxHeight = checkboxHeight;
-        checkboxSize = new Dimension ( this.checkboxWidth, this.checkboxHeight );
+        this.checkboxSize = new Dimension ( this.checkboxWidth, this.checkboxHeight );
+        this.cboxBackground = checkboxBackgraund;
+        this.cboxForeground= checkboxForeground;
 
         allCourses = new ArrayList<Course>();
-        checkBoxes = new ArrayList<JCheckBox>();
 
         scrollbar = false;
-        /* 
-        this.setHorizontalScrollBarPolicy( JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
-        this.setVerticalScrollBarPolicy( JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED );
-        */
-
-        /* layout of JScrollPane must be a ScrollPaneLayout */
         
         FlowLayout layout = new FlowLayout( FlowLayout.LEFT, H_GAP, V_GAP);
         this.setLayout(layout);
@@ -84,8 +81,10 @@ public class CourseSelection extends JPanel{
         );
 
         cBox.setPreferredSize( checkboxSize );
+        cBox.setBackground(cboxBackground);
+        cBox.setForeground(cboxForeground);
+        cBox.setOpaque(true);
     
-        checkBoxes.add(cBox);
         this.add(cBox);
     }
 

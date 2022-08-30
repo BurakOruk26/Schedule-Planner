@@ -43,13 +43,15 @@ public class MainFrame extends JFrame {
         utilities.setPreferredSize(new Dimension( UTILITIES_WIDTH, HEIGHT ));
         utilities.setBackground( new Color(90,30,30));
 
+        // addCourse button
         addCourse = new JButton("Add Course");
         addCourse.setPreferredSize(new Dimension(150,100));
         addCourse.setBackground( new Color(90,50,50));
-        addCourse.setForeground(new Color(150,130,130));
+        addCourse.setForeground(new Color(170,150,150));
 
         // setting "courseSelection"
-        courseSelection = new CourseSelection( SELECTION_PANEL_WIDTH, C_BOX_HEIGHT );
+        courseSelection = new CourseSelection( SELECTION_PANEL_WIDTH, C_BOX_HEIGHT, 
+            new Color(40,30,30), new Color(130,120,120) );
         courseSelection.setPreferredSize(new Dimension(SELECTION_PANEL_WIDTH, SELECTION_PANEL_HEIGHT));
         courseSelection.setBackground( new Color(55,30,30));
 
