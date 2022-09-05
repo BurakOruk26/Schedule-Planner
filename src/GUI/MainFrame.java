@@ -53,7 +53,7 @@ public class MainFrame extends JFrame {
         courseSelection = new CourseSelection( SELECTION_PANEL_WIDTH, C_BOX_HEIGHT, 
             new Color(40,30,30), new Color(130,120,120) );
         courseSelection.setPreferredSize(new Dimension(SELECTION_PANEL_WIDTH, SELECTION_PANEL_HEIGHT));
-        courseSelection.setBackground( new Color(55,30,30));
+        courseSelection.setBackgroundColor( new Color(55,30,30));
 
         utilities.add(addCourse);
         utilities.add(courseSelection);

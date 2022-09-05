@@ -10,30 +10,30 @@ import backend.Course;
 
 import java.util.ArrayList;
 
+import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.Color;
 
-public class CourseSelection extends JPanel{
+public class CourseSelection extends JScrollPane{
     private ArrayList<Course> allCourses;
     private Schedule activeCourses;
 
+    private JPanel plate;
+
     private final int H_GAP = 10;
-    private final int V_GAP = 10;
     private int checkboxHeight;
     private int checkboxWidth;
     private Dimension checkboxSize;
     private Color cboxBackground;
     private Color cboxForeground;
 
-    private boolean scrollbar;
-
     public CourseSelection( int checkboxWidth, int checkboxHeight, Color checkboxBackgraund, Color checkboxForeground){
+
+        plate = new JPanel();
 
         this.checkboxWidth = checkboxWidth - 2*H_GAP;
         this.checkboxHeight = checkboxHeight;
@@ -42,11 +42,13 @@ public class CourseSelection extends JPanel{
         this.cboxForeground= checkboxForeground;
 
         allCourses = new ArrayList<Course>();
-
-        scrollbar = false;
         
-        FlowLayout layout = new FlowLayout( FlowLayout.LEFT, H_GAP, V_GAP);
-        this.setLayout(layout);
+        this.plate.setLayout( new BoxLayout(plate, BoxLayout.Y_AXIS));
+        this.plate.add(javax.swing.Box.createRigidArea(new Dimension(0,H_GAP)));
+
+        this.getViewport().setView(plate);
+
+        this.getVerticalScrollBar().setUnitIncrement(16);
         
     }
 
@@ -55,7 +57,6 @@ public class CourseSelection extends JPanel{
 
         allCourses.add(course);
         
-        updateSize();
         this.addCheckBox(course);
 
         return true;
@@ -69,7 +70,6 @@ public class CourseSelection extends JPanel{
         if ( activeCourses.contains(course)) {
             activeCourses.removeCourse(course);
         }
-        updateSize();
 
         return true;
     }
@@ -85,12 +85,13 @@ public class CourseSelection extends JPanel{
         cBox.setForeground(cboxForeground);
         cBox.setOpaque(true);
     
-        this.add(cBox);
+        plate.add(cBox);
+        this.plate.add(javax.swing.Box.createRigidArea(new Dimension(0,H_GAP)));
     }
 
     private void removeCheckBox( Course course ){
         int index = allCourses.indexOf( course );
-        this.remove(index);
+        plate.remove(index);
     }
 
     public void setActiveCourses(Schedule activeCourses) {
@@ -101,29 +102,7 @@ public class CourseSelection extends JPanel{
         this.activeCourses = activeCourses;
     }
 
-    private void updateSize(){
-        int cBoxCount = allCourses.size();
-        int height = (cBoxCount * checkboxHeight) + ((cBoxCount + 1) * H_GAP);
-
-        if ( height <= this.getHeight() ){ // // // change this line for removeCourse() method // // //
-            return;
-        }
-        else if (height > this.getHeight() && !scrollbar ){
-            this.setSize( this.getWidth(), height);
-            
-            this.add(new JScrollBar(JScrollBar.VERTICAL), BorderLayout.EAST);
-            scrollbar = true;
-        }
-        else{
-            this.setSize( this.getWidth(), height);
-        }
+    public void setBackgroundColor( Color color ){
+        this.plate.setBackground(color);
     }
-
-    /*
-    public CourseSelection(Schedule schedule){
-        this();
-        allCourses = schedule.getCourses();
-        activeCourses = schedule;
-    }
-    */
 }

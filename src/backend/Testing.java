@@ -74,5 +74,15 @@ public class Testing {
         MainFrame mf3 = new MainFrame();
         mf3.setSchedule(s);
         mf3.setVisible(true);
+
+        
+        Schedule sc = new Schedule();
+        for (int i = 0; i < 40; i++){
+            sc.addCourse( new Course("name", "instructor", 0));
+        }
+        MainFrame mff = new MainFrame("overflow");
+        mff.setSchedule(sc);
+        mff.setVisible(true);
+        
     }
 }
