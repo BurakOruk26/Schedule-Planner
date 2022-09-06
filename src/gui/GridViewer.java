@@ -76,17 +76,21 @@ public class GridViewer extends JPanel {
         else if ( type == SELECT ){
 
             // setting all the spaces in "colors" to JLabels in required size and the color AVAILABLE
-            this.colors = new ChechkButton[TIMES][DAYS];
+            this.colors = new CheckButton[TIMES][DAYS];
             for ( int i = 0; i < TIMES; i++ ){
                 for ( int j = 0; j < DAYS; j++){  
-                    ChechkButton color = new ChechkButton();
+                    CheckButton color = new CheckButton();
                     color.setPreferredSize( new Dimension (labelWidth, labelHeight));
-                    color.setBackground(AVAILABLE);
-                    color.setOpaque(true);              
                     colors[i][j] = color;
                     this.add(color);
                 }
             }
+        }
+    }
+
+    protected void createCourse(){
+        if ( type == SELECT ){
+            //TODO
         }
     }
 

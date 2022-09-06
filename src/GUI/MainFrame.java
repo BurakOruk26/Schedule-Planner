@@ -103,10 +103,26 @@ public class MainFrame extends JFrame {
     private void courseCreation(){
         JFrame frame = new JFrame( "Create a Course" );
 
-        frame.add( new GridViewer( GridViewer.SELECT ));
+        GridViewer grid = new GridViewer(GridViewer.SELECT);
 
-        int width = VIEWER_WIDTH - 2*VIEWER_GAP;
-        int height = HEIGHT - 2*VIEWER_GAP;
+        frame.add(grid, BorderLayout.CENTER);
+
+        int width = VIEWER_WIDTH ;
+        int height = HEIGHT - VIEWER_GAP*2;
+
+        JButton done = new JButton("DONE");
+        done.setBackground( new Color (30,10,10));
+        done.setForeground( new Color(150,170,170));
+        done.addActionListener(e -> grid.createCourse());
+
+        JPanel buttons = new JPanel();
+        buttons.setPreferredSize( new Dimension( VIEWER_GAP*2, height ));
+        buttons.setBackground( new Color(60,40,40));
+        buttons.setLayout( new FlowLayout(FlowLayout.CENTER,0, ((height/2) - done.getHeight()) ));
+
+        buttons.add(done);
+
+        frame.add( buttons, BorderLayout.EAST );
 
         frame.pack();
         frame.setLocationRelativeTo(scheduleViewer);
@@ -123,6 +139,8 @@ public class MainFrame extends JFrame {
 
         /*  
             *will be needed, however it may not be at the moment*
+        */
+        /*
         Schedule schedule = new Schedule();
         mainFrame.setSchedule(schedule);
         */

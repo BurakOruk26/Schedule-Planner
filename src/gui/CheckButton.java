@@ -13,13 +13,13 @@ import javax.swing.JButton;
 
 import java.awt.Color;
 
-public class ChechkButton extends JButton{
+public class CheckButton extends JButton{
     private boolean selected;
 
     private Color available = GridViewer.AVAILABLE;
     private Color taken = GridViewer.TAKEN;
 
-    public ChechkButton(){
+    public CheckButton(){
         super();
 
         selected = false;
@@ -33,10 +33,10 @@ public class ChechkButton extends JButton{
         selected = !selected;
 
         if (selected){
-            this.setBackground(available);
+            this.setBackground(taken);
         }
         else{
-            this.setBackground(taken);
+            this.setBackground(available);
         }
     }
 
