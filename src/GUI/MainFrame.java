@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 
 import backend.Schedule;
-import backend.Course;
 
 public class MainFrame extends JFrame {
     private JPanel utilities;
@@ -71,11 +70,19 @@ public class MainFrame extends JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
     }
-    public MainFrame(String name){
+    public MainFrame(String title){
         this();
-        this.setTitle(name);
+        this.setTitle(title);
     }
-    
+    public MainFrame (Schedule schedule){
+        this();
+        this.setSchedule(schedule);
+    }
+    public MainFrame(String title, Schedule schedule){
+        this(title);
+        this.setSchedule(schedule);
+    }
+
     public void setSchedule(Schedule schedule){
         scheduleViewer.setSchedule(schedule);
         scheduleViewer.updateSchedule();

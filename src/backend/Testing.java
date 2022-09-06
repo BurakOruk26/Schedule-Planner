@@ -44,14 +44,15 @@ public class Testing {
         c.add(c2);
         c.add(c3);
 
-        //
+        
         Schedule s = new Schedule();
         s.addCourse(c);
 
+        /* 
         // there should be conflicts
         System.out.println( "*".repeat(50) );
         System.out.println( s );
-        //
+        
         MainFrame mf1 = new MainFrame();
         mf1.setSchedule(s);
         mf1.setVisible(true);
@@ -60,7 +61,7 @@ public class Testing {
         s.removeCourse( c2 );
         System.out.println( "*".repeat(50) );
         System.out.println( s );
-        //
+        
         MainFrame mf2 = new MainFrame();
         mf2.setSchedule(s);
         mf2.setVisible(true);
@@ -70,7 +71,7 @@ public class Testing {
         s.removeCourse( c3 );
         System.out.println( "*".repeat(50) );
         System.out.println( s );
-        //
+        
         MainFrame mf3 = new MainFrame();
         mf3.setSchedule(s);
         mf3.setVisible(true);
@@ -80,9 +81,13 @@ public class Testing {
         for (int i = 0; i < 40; i++){
             sc.addCourse( new Course("name", "instructor", 0));
         }
-        MainFrame mff = new MainFrame("overflow");
-        mff.setSchedule(sc);
+        MainFrame mff = new MainFrame("overflow",s);
         mff.setVisible(true);
-        
+        */
+
+        Schedule sCBox = new Schedule();
+        sCBox.addCourse(c);
+        MainFrame mfcb = new MainFrame("checkbox control",s);
+        mfcb.setVisible(true);
     }
 }
