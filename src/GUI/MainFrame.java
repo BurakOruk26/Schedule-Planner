@@ -48,6 +48,7 @@ public class MainFrame extends JFrame {
         addCourse.setPreferredSize(new Dimension(150,100));
         addCourse.setBackground( new Color(90,50,50));
         addCourse.setForeground(new Color(170,150,150));
+        addCourse.addActionListener( e -> this.courseCreation() );
 
         // setting "courseSelection"
         courseSelection = new CourseSelection( SELECTION_PANEL_WIDTH, C_BOX_HEIGHT, 
@@ -70,6 +71,8 @@ public class MainFrame extends JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
     }
+
+    // different variations of constructors, if to be needed
     public MainFrame(String title){
         this();
         this.setTitle(title);
@@ -96,6 +99,24 @@ public class MainFrame extends JFrame {
     protected void updateSchedule(){
         scheduleViewer.updateSchedule();
     }
+
+    private void courseCreation(){
+        JFrame frame = new JFrame( "Create a Course" );
+
+        frame.add( new GridViewer( GridViewer.SELECT ));
+
+        int width = VIEWER_WIDTH - 2*VIEWER_GAP;
+        int height = HEIGHT - 2*VIEWER_GAP;
+
+        frame.pack();
+        frame.setLocationRelativeTo(scheduleViewer);
+        frame.setPreferredSize( new Dimension( width, height ));
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+  
+        frame.setVisible(true);
+    }
+
 
     public static void main(String[] args) {
         MainFrame mainFrame = new MainFrame( "SCHEDULE PLANNER by Burak Oruk" );
