@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import backend.Schedule;
+import backend.Course;
 
 public class MainFrame extends JFrame {
     private JPanel utilities;
@@ -54,6 +55,7 @@ public class MainFrame extends JFrame {
             new Color(40,30,30), new Color(130,120,120) );
         courseSelection.setPreferredSize(new Dimension(SELECTION_PANEL_WIDTH, SELECTION_PANEL_HEIGHT));
         courseSelection.setBackgroundColor( new Color(55,30,30));
+        courseSelection.setMainFrame(this);
 
         utilities.add(addCourse);
         utilities.add(courseSelection);
@@ -73,7 +75,7 @@ public class MainFrame extends JFrame {
         this();
         this.setTitle(name);
     }
-
+    
     public void setSchedule(Schedule schedule){
         scheduleViewer.setSchedule(schedule);
         scheduleViewer.updateSchedule();
@@ -81,13 +83,21 @@ public class MainFrame extends JFrame {
         courseSelection.setActiveCourses(schedule);
     }
 
-    // probably won't need this
-    public void updateSchedule(){
+    /**
+     * this method is used to graphically update the state of the ScheduleViewer
+     */
+    protected void updateSchedule(){
         scheduleViewer.updateSchedule();
     }
 
     public static void main(String[] args) {
         MainFrame mainFrame = new MainFrame( "SCHEDULE PLANNER by Burak Oruk" );
+
+        /*  
+            *will be needed, however it may not be at the moment*
+        Schedule schedule = new Schedule();
+        mainFrame.setSchedule(schedule);
+        */
         mainFrame.setVisible(true);
     }
 }

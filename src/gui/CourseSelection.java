@@ -21,6 +21,7 @@ import java.awt.Color;
 public class CourseSelection extends JScrollPane{
     private ArrayList<Course> allCourses;
     private Schedule activeCourses;
+    private MainFrame mainFrame;
 
     private JPanel plate;
 
@@ -77,8 +78,11 @@ public class CourseSelection extends JScrollPane{
     private void addCheckBox( Course course ){
         JCheckBox cBox = new JCheckBox( 
             String.format( "%s %s %s" , (course.getName()), (course.getSection()), (course.getInstructor()) ), 
-            false
+            true
         );
+
+        // this code is not relaible, will this button have the course assigned to it all the times?
+        cBox.addActionListener(e -> setCourseActivity(cBox, course));
 
         cBox.setPreferredSize( checkboxSize );
         cBox.setBackground(cboxBackground);
@@ -94,12 +98,29 @@ public class CourseSelection extends JScrollPane{
         plate.remove(index);
     }
 
+    // will the MainFrame will be updated after this?
+    private void setCourseActivity(JCheckBox checkBox, Course course){
+        
+        if ( checkBox.isSelected() ){
+            activeCourses.addCourse(course);
+            mainFrame.updateSchedule();
+        }
+        else {
+            activeCourses.removeCourse(course);
+            mainFrame.updateSchedule();
+        }
+    }
+
     public void setActiveCourses(Schedule activeCourses) {
         for ( Course course : activeCourses.getCourses() ){
             this.addCourse(course);
         }
 
         this.activeCourses = activeCourses;
+    }
+
+    public void setMainFrame(MainFrame mainFrame){
+        this.mainFrame = mainFrame;
     }
 
     public void setBackgroundColor( Color color ){
