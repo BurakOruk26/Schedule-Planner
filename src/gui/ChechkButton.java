@@ -16,8 +16,8 @@ import java.awt.Color;
 public class ChechkButton extends JButton{
     private boolean selected;
 
-    private Color available = ScheduleViewer.AVAILABLE;
-    private Color taken = ScheduleViewer.TAKEN;
+    private Color available = GridViewer.AVAILABLE;
+    private Color taken = GridViewer.TAKEN;
 
     public ChechkButton(){
         super();

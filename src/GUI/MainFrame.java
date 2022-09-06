@@ -10,7 +10,7 @@ public class MainFrame extends JFrame {
     private JButton addCourse;
     private CourseSelection courseSelection; // will be changed to a custom-made class
     private JPanel viewerPanel;
-    private ScheduleViewer scheduleViewer;
+    private GridViewer scheduleViewer;
 
     public static final int FRAME_WIDTH = 1500;
     public static final int HEIGHT = 900;      
@@ -33,7 +33,7 @@ public class MainFrame extends JFrame {
         viewerPanel.setBackground(Color.DARK_GRAY);
 
         // initializing and adding ScheduleViewer object to "viewerPanel"
-        scheduleViewer = new ScheduleViewer();
+        scheduleViewer = new GridViewer( GridViewer.VIEW );
         viewerPanel.add(scheduleViewer);   
 
         // setting the "utilities"
