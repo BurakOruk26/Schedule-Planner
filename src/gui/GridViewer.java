@@ -4,14 +4,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.util.ArrayList;
 import java.awt.Dimension;
 import java.awt.Font;
 
 import backend.*;
 
 /**
- * ScheduleViewer
+ * This class creates a grid-like looking JLabel with an obvious GridLayout.
+ * It has the following two type of functionalities:
+ *  View, allowing a JLabel based grid to be displayed, it shows the current situation of the Schedule.
+ *  Select, allowing a CheckButton.java based grid to be displayed, users are able to choose the time and day for their Courses to be added.
+ * @author Burak Oruk
+ * date: 10.08.2022 (the codes have been migrated from ScheduleViewer.java, hence files creation date may differ)
  */
 public class GridViewer extends JPanel {
     private int type;
@@ -108,7 +112,8 @@ public class GridViewer extends JPanel {
     }
 
     /**
-     * this methods checks all the places on the schedule and updates the color of the tile if needed
+     * This methods checks all the places on the schedule and updates the color of the tile if needed.
+     * Extra control are done to prevent unnecessary actions like coloring the JLabel the same color as before.
      */
     public void updateSchedule(){
 
@@ -128,18 +133,20 @@ public class GridViewer extends JPanel {
 
                     if (status == Schedule.AVAILABLE && !(color.getBackground().equals(AVAILABLE)) ){
                         color.setBackground(AVAILABLE);
-                        color.setText("");
+                        // The method "nameCourses()" only checks the places with lessons on them,
+                        // hence at this line JLabel's text is set to empty to prevent unwelcome text appearing.
+                        color.setText(""); 
                     }
                     else if (status == Schedule.TAKEN  && !(color.getBackground().equals(TAKEN)) ){
                         color.setBackground(TAKEN);
                     }
                     else if (status >= Schedule.CONFLICT  && !(color.getBackground().equals(CONFLICT)) ){
                         color.setBackground(CONFLICT);
-                        color.setText("CONFLICT");
                     }
                 }
             }
 
+            // update everything, will never regret this
             this.revalidate();
             this.repaint();
         }
@@ -152,11 +159,25 @@ public class GridViewer extends JPanel {
     private void nameCourses(){
         for ( Course course : schedule.getCourses() ){
             String text = String.format( " %s %s", course.getTitle(),course.getSection() );
+
             for ( Lesson lesson : course.getLessons() ){
+
                 int time = lesson.getTime();
                 int day = lesson.getDay();
                 JLabel color =(JLabel)colors[time][day];
-                color.setText(text);
+                /* 
+                 * If the label's text is already empty, obviosly "text" has to be setted to the label.
+                 * The other part is a little tricky, 
+                 *  if the label's text already contains "text" we set it it only to the "text".
+                 * This works because it resets the label's text to first lesson to be there,
+                 *  after that the other lessons to be come are concatinated to label's text by the else if condition's body.
+                 */
+                if ( color.getText().equals("") || color.getText().contains(text)){
+                    color.setText(text);
+                }
+                else if (! color.getText().contains(text) ){
+                    color.setText(color.getText() + "/ " + text);
+                }
             }
         }
     }
