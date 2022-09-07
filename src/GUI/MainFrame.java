@@ -2,7 +2,7 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 import backend.Schedule;
 import backend.Course;
@@ -104,6 +104,80 @@ public class MainFrame extends JFrame {
 
     private void courseCreation(){
         MainFrame mainFrame = this;
+
+        // creating a JFrame with JTextFields for the user to give the information needed for the "Course"
+        JFrame infoFrame = new JFrame("Enter the Course Information");
+
+        int infoHeight = 400;
+        int infoWidth = 600;
+        int infoGap = 20;
+        int fieldWidth = 500;
+        int fieldHeight = infoHeight - (infoGap*5);
+
+        JPanel infoPanel = new JPanel();
+        infoPanel.setBackground( new Color(80,50,50));
+        infoPanel.setPreferredSize( new Dimension(infoWidth, infoHeight));
+        infoPanel.setLayout( new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+        infoPanel.add(javax.swing.Box.createRigidArea(new Dimension(0,infoGap)));
+
+
+        String[] courseProperties = {"Title", "Instructor", "Section"}; 
+
+        // initializing JTextFields
+        JTextField titleField = new JTextField("Course Title");
+        JTextField instructorField = new JTextField("Instructor");
+        JTextField sectionField = new JTextField("Section");
+
+        // properties of the JTextFields
+        JTextField[] fields = {titleField,instructorField,sectionField};
+        Dimension fieldSize = new Dimension(fieldWidth,fieldHeight);
+        Color fieldBackground = new Color(120,80,80);
+        Color fieldForeground = new Color (200,180,180);
+
+        for ( JTextField field : fields){
+            field.setPreferredSize(fieldSize);
+            field.setBackground(fieldBackground);
+            field.setForeground(fieldForeground);
+
+            field.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                field.setText("");
+                }
+            });
+
+            infoPanel.add(field);
+            infoPanel.add(javax.swing.Box.createRigidArea(new Dimension(100,infoGap)));
+        }
+
+        // initializing a button to end the process and hold the values given for the "Course"
+        JButton fieldDone = new JButton("DONE");
+
+        fieldDone.setBackground(new Color (30,10,10));
+        fieldDone.setForeground(new Color(150,120,120));
+        
+        fieldDone.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent evt){
+        
+                courseProperties[0] = (String)titleField.getText();
+                courseProperties[1] = (String)instructorField.getText();
+                courseProperties[2] = (String)sectionField.getText();
+                
+                infoFrame.dispose();
+            }
+        });
+
+        infoPanel.add(fieldDone);
+        infoPanel.add(javax.swing.Box.createRigidArea(new Dimension(0,infoGap)));
+
+        infoFrame.add(infoPanel);
+        infoFrame.setPreferredSize( new Dimension(infoWidth, infoHeight));
+        infoFrame.pack();
+        infoFrame.setLocationRelativeTo(scheduleViewer);
+        infoFrame.setAlwaysOnTop(true);
+        infoFrame.setVisible(true);
+
+
+        // creating a JFrame containing a SELECT type "GridViewer" for the user to select the hours of the cours
         JFrame frame = new JFrame( "Create a Course" );
 
         GridViewer grid = new GridViewer(GridViewer.SELECT);
@@ -118,7 +192,7 @@ public class MainFrame extends JFrame {
         done.setForeground( new Color(150,170,170));
         done.addActionListener(new ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                grid.createCourse(mainFrame);
+                grid.createCourse(mainFrame, courseProperties[0],courseProperties[1],courseProperties[2]);
                 frame.dispose();
             }
         });
@@ -137,7 +211,6 @@ public class MainFrame extends JFrame {
         frame.setPreferredSize( new Dimension( width, height ));
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-  
         frame.setVisible(true);
     }
 

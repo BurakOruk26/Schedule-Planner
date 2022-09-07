@@ -11,13 +11,13 @@ import java.util.ArrayList;
 public class Course {
 
     // variables
-    private String name;
+    private String title;
     private String instructor; // makes it easier for the student to recognize this Course, nothing more
-    private int section;
+    private String section;
     private ArrayList<Lesson> lessons;
 
-    public Course( String name, String instructor, int section ){
-         this.name = name;
+    public Course( String name, String instructor, String section ){
+         this.title = name;
          this.instructor = instructor;
          this.section = section;
 
@@ -40,24 +40,24 @@ public class Course {
     public ArrayList<Lesson> getLessons() {
         return lessons;
     }
-    public int getSection() {
+    public String getSection() {
         return section;
     }
     public String getInstructor() {
         return instructor;
     }
     public String getName() {
-        return name;
+        return title;
     }
 
     // setter methods
     public void setName(String name) {
-        this.name = name;
+        this.title = name;
     }
     public void setInstructor(String instructor) {
         this.instructor = instructor;
     }
-    public void setSection(int section) {
+    public void setSection(String section) {
         this.section = section;
     }
     public void setLessons(ArrayList<Lesson> lessons) {

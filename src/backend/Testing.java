@@ -8,9 +8,9 @@ public class Testing {
 
         ArrayList<Course> c = new ArrayList<>();
 
-        Course c1 = new Course("CS1", "Burak", 1);
-        Course c2 = new Course("CS2", "Brak", 2);
-        Course c3 =new Course("CS3", "Burk", 3);
+        Course c1 = new Course("CS1", "Burak", "1");
+        Course c2 = new Course("CS2", "Brak", "2");
+        Course c3 =new Course("CS3", "Burk", "3");
 
 
         c1.addLesson( new Lesson( Lesson.EIGHT_THIRTY, Lesson.MONDAY ) );

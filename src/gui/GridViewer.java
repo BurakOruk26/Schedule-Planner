@@ -90,9 +90,9 @@ public class GridViewer extends JPanel {
         }
     }
 
-    protected void createCourse(MainFrame mainFrame){
+    protected void createCourse(MainFrame mainFrame, String title, String instructor, String section){
         if ( type == SELECT ){
-            Course course = new Course("name","instructor",0);
+            Course course = new Course(title,instructor,section);
             for (int i = 0; i < TIMES; i++){
                 for (int j = 0; j< DAYS; j++){
                     CheckButton current = (CheckButton)colors[i][j];
