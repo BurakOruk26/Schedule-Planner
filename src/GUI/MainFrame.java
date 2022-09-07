@@ -2,8 +2,10 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 import backend.Schedule;
+import backend.Course;
 
 public class MainFrame extends JFrame {
     private JPanel utilities;
@@ -101,6 +103,7 @@ public class MainFrame extends JFrame {
     }
 
     private void courseCreation(){
+        MainFrame mainFrame = this;
         JFrame frame = new JFrame( "Create a Course" );
 
         GridViewer grid = new GridViewer(GridViewer.SELECT);
@@ -113,7 +116,12 @@ public class MainFrame extends JFrame {
         JButton done = new JButton("DONE");
         done.setBackground( new Color (30,10,10));
         done.setForeground( new Color(150,170,170));
-        done.addActionListener(e -> grid.createCourse());
+        done.addActionListener(new ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                grid.createCourse(mainFrame);
+                frame.dispose();
+            }
+        });
 
         JPanel buttons = new JPanel();
         buttons.setPreferredSize( new Dimension( VIEWER_GAP*2, height ));
@@ -133,17 +141,18 @@ public class MainFrame extends JFrame {
         frame.setVisible(true);
     }
 
+    protected void addCourse(Course course){
+        scheduleViewer.getSchedule().addCourse(course);
+        this.updateSchedule();
+        courseSelection.addCourse(course);
+    }
 
     public static void main(String[] args) {
         MainFrame mainFrame = new MainFrame( "SCHEDULE PLANNER by Burak Oruk" );
 
-        /*  
-            *will be needed, however it may not be at the moment*
-        */
-        /*
         Schedule schedule = new Schedule();
         mainFrame.setSchedule(schedule);
-        */
+        
         mainFrame.setVisible(true);
     }
 }

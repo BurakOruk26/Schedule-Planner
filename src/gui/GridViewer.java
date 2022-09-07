@@ -6,7 +6,9 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Dimension;
 
+import backend.Lesson;
 import backend.Schedule;
+import backend.Course;
 
 /**
  * ScheduleViewer
@@ -19,7 +21,7 @@ public class GridViewer extends JPanel {
 
     private final int COLOR_GAP = 5;
     private GridLayout layout;
-    private Schedule mySchedule;
+    private Schedule schedule;
     private JComponent[][] colors;
 
     public static final Color AVAILABLE = new Color(40,40,40);
@@ -88,9 +90,19 @@ public class GridViewer extends JPanel {
         }
     }
 
-    protected void createCourse(){
+    protected void createCourse(MainFrame mainFrame){
         if ( type == SELECT ){
-            //TODO
+            Course course = new Course("name","instructor",0);
+            for (int i = 0; i < TIMES; i++){
+                for (int j = 0; j< DAYS; j++){
+                    CheckButton current = (CheckButton)colors[i][j];
+                    if ( current.isSelected()){
+                        Lesson lesson = new Lesson(i,j);
+                        course.addLesson(lesson);
+                    }
+                }
+            }
+            mainFrame.addCourse(course);
         }
     }
 
@@ -101,15 +113,15 @@ public class GridViewer extends JPanel {
 
         if ( this.type == VIEW ){
 
-            int[][] schedule = mySchedule.getSchedule();
+            int[][] tempSchedule = schedule.getSchedule();
 
             JLabel color;
             int status;
 
-            for (int i = 0; i < schedule.length; i++){
-                for (int j = 0; j < schedule[0].length; j++){
+            for (int i = 0; i < tempSchedule.length; i++){
+                for (int j = 0; j < tempSchedule[0].length; j++){
                     color = (JLabel)colors[i][j];
-                    status = schedule[i][j];
+                    status = tempSchedule[i][j];
 
                     if (status == Schedule.AVAILABLE && !(color.getBackground().equals(AVAILABLE)) ){
                         color.setBackground(AVAILABLE);
@@ -126,9 +138,9 @@ public class GridViewer extends JPanel {
     }
 
     public void setSchedule(Schedule schedule) {
-        this.mySchedule = schedule;
+        this.schedule = schedule;
     }
     public Schedule getSchedule() {
-        return mySchedule;
+        return schedule;
     }
 }

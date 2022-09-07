@@ -91,6 +91,9 @@ public class CourseSelection extends JScrollPane{
     
         plate.add(cBox);
         this.plate.add(javax.swing.Box.createRigidArea(new Dimension(0,H_GAP)));
+
+        plate.revalidate();
+        plate.repaint();
     }
 
     private void removeCheckBox( Course course ){
