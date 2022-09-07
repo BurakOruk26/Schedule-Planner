@@ -107,6 +107,8 @@ public class MainFrame extends JFrame {
     private void courseCreation(){
         MainFrame mainFrame = this;
 
+        // PART 1 //
+
         // creating a JFrame with JTextFields for the user to give the information needed for the "Course"
         JFrame infoFrame = new JFrame("Enter the Course Information");
 
@@ -178,6 +180,7 @@ public class MainFrame extends JFrame {
         infoFrame.setAlwaysOnTop(true);
         infoFrame.setVisible(true);
 
+        // PART 2 //
 
         // creating a JFrame containing a SELECT type "GridViewer" for the user to select the hours of the cours
         JFrame frame = new JFrame( "Create a Course" );
@@ -196,6 +199,7 @@ public class MainFrame extends JFrame {
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 grid.createCourse(mainFrame, courseProperties[0],courseProperties[1],courseProperties[2]);
                 frame.dispose();
+                infoFrame.dispose();
             }
         });
 
@@ -220,6 +224,12 @@ public class MainFrame extends JFrame {
         scheduleViewer.getSchedule().addCourse(course);
         this.updateSchedule();
         courseSelection.addCourse(course);
+    }
+
+    protected void removeCourse( Course course ){
+        scheduleViewer.getSchedule().removeCourse(course);
+        this.updateSchedule();
+        courseSelection.removeCourse(course);
     }
 
     public static void main(String[] args) {

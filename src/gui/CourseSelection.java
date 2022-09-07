@@ -11,11 +11,13 @@ import backend.Course;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Color;
 
@@ -33,20 +35,26 @@ public class CourseSelection extends JScrollPane{
     private Color cboxBackground;
     private Color cboxForeground;
 
+    private Dimension cardSize;
+    private Dimension deleteButtonSize;
+
     public CourseSelection( int checkboxWidth, int checkboxHeight, Color checkboxBackgraund, Color checkboxForeground){
 
         plate = new JPanel();
 
-        this.checkboxWidth = checkboxWidth - 2*H_GAP;
+        this.checkboxWidth = checkboxWidth - H_GAP*3 - checkboxHeight;
         this.checkboxHeight = checkboxHeight;
         this.checkboxSize = new Dimension ( this.checkboxWidth, this.checkboxHeight );
         this.cboxBackground = checkboxBackgraund;
         this.cboxForeground= checkboxForeground;
 
+        cardSize = new Dimension( this.checkboxWidth + H_GAP*2 + checkboxHeight, this.checkboxHeight );
+        deleteButtonSize = new Dimension( checkboxHeight, checkboxHeight );
+
         allCourses = new ArrayList<Course>();
         
         this.plate.setLayout( new BoxLayout(plate, BoxLayout.Y_AXIS));
-        this.plate.add(javax.swing.Box.createRigidArea(new Dimension(H_GAP,H_GAP)));
+        this.plate.add(javax.swing.Box.createRigidArea(new Dimension(0,H_GAP)));
 
         this.getViewport().setView(plate);
 
@@ -77,6 +85,8 @@ public class CourseSelection extends JScrollPane{
     }
 
     private void addCheckBox( Course course ){
+        
+        // initializing a JCheckBox
         JCheckBox cBox = new JCheckBox( 
             String.format( "%s %s %s" , (course.getTitle()), (course.getSection()), (course.getInstructor()) ), 
             true
@@ -84,23 +94,53 @@ public class CourseSelection extends JScrollPane{
 
         cBox.addActionListener(e -> setCourseActivity(cBox, course));
 
-        cBox.setPreferredSize(checkboxSize);
         cBox.setBackground(cboxBackground);
         cBox.setForeground(cboxForeground);
+        cBox.setPreferredSize(checkboxSize);
         cBox.setFont( new Font("Bookman Old Style", Font.PLAIN, 16));
         cBox.setFocusPainted(false);
         cBox.setOpaque(true);
+
+        // initializing "deleteCourse"
+        JButton deleteCourse = new JButton("X");
+        deleteCourse.setBackground(new Color(20,10,10));
+        deleteCourse.setForeground(new Color(150,20,20));
+        deleteCourse.setFont(new Font("Calibri", Font.BOLD, 17));
+        deleteCourse.setPreferredSize(deleteButtonSize);
+        deleteCourse.setFocusPainted(false);
+        deleteCourse.addActionListener( e -> mainFrame.removeCourse(course));
+
+        // creating a JPanel to hold both the CheckBox and the deleteCourse JButton.
+        JPanel card = new JPanel();
+        card.setOpaque(false);
+        card.setPreferredSize(cardSize);
+        card.setMaximumSize(cardSize);
+        card.setLayout(new FlowLayout(FlowLayout.LEFT,H_GAP,0));
+
+        // adding components to the "card"
+        card.add(cBox);
+        card.add(deleteCourse);
     
-        plate.add(cBox);
-        this.plate.add(javax.swing.Box.createRigidArea(new Dimension(H_GAP,H_GAP)));
+        plate.add(card);
+        this.plate.add(javax.swing.Box.createRigidArea(new Dimension(0,H_GAP)));
 
         plate.revalidate();
         plate.repaint();
     }
 
     private void removeCheckBox( Course course ){
-        int index = allCourses.indexOf( course );
-        plate.remove(index);
+        /*
+         * The math here is simple, there is a gap coming after every JPanel,
+         *  hence we multiply the JPanel's index by 2 to skip one gap per JPanel.
+         * After that we increment the index by 1 to skip that one gap which dwells on the top of the "plate".
+         */
+        int index = allCourses.indexOf(course)*2 + 1;
+        
+        plate.remove(index); // denelting the JPanel that holds checkBox and deleteButton
+        plate.remove(index); // deleting the gap comes after JPanel
+
+        plate.revalidate();
+        plate.repaint();
     }
 
     // will the MainFrame will be updated after this?
