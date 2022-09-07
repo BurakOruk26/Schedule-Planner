@@ -157,14 +157,19 @@ public class GridViewer extends JPanel {
      */
      
     private void nameCourses(){
+        // variable decleration
+        JLabel color;
+        int time;
+        int day;
+
         for ( Course course : schedule.getCourses() ){
             String text = String.format( " %s %s", course.getTitle(),course.getSection() );
 
             for ( Lesson lesson : course.getLessons() ){
 
-                int time = lesson.getTime();
-                int day = lesson.getDay();
-                JLabel color =(JLabel)colors[time][day];
+                time = lesson.getTime();
+                day = lesson.getDay();
+                color =(JLabel)colors[time][day];
                 /* 
                  * If the label's text is already empty, obviosly "text" has to be setted to the label.
                  * The other part is a little tricky, 

@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Color;
 
 public class CourseSelection extends JScrollPane{
@@ -45,7 +46,7 @@ public class CourseSelection extends JScrollPane{
         allCourses = new ArrayList<Course>();
         
         this.plate.setLayout( new BoxLayout(plate, BoxLayout.Y_AXIS));
-        this.plate.add(javax.swing.Box.createRigidArea(new Dimension(0,H_GAP)));
+        this.plate.add(javax.swing.Box.createRigidArea(new Dimension(H_GAP,H_GAP)));
 
         this.getViewport().setView(plate);
 
@@ -81,16 +82,17 @@ public class CourseSelection extends JScrollPane{
             true
         );
 
-        // this code is not relaible, will this button have the course assigned to it all the times?
         cBox.addActionListener(e -> setCourseActivity(cBox, course));
 
-        cBox.setPreferredSize( checkboxSize );
+        cBox.setPreferredSize(checkboxSize);
         cBox.setBackground(cboxBackground);
         cBox.setForeground(cboxForeground);
+        cBox.setFont( new Font("Bookman Old Style", Font.PLAIN, 16));
+        cBox.setFocusPainted(false);
         cBox.setOpaque(true);
     
         plate.add(cBox);
-        this.plate.add(javax.swing.Box.createRigidArea(new Dimension(0,H_GAP)));
+        this.plate.add(javax.swing.Box.createRigidArea(new Dimension(H_GAP,H_GAP)));
 
         plate.revalidate();
         plate.repaint();
