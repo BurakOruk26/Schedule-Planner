@@ -4,18 +4,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.awt.Dimension;
+import java.awt.Font;
 
-import backend.Lesson;
-import backend.Schedule;
-import backend.Course;
+import backend.*;
 
 /**
  * ScheduleViewer
  */
 public class GridViewer extends JPanel {
     private int type;
-
     public static final int VIEW = 0;
     public static final int SELECT = 1;
 
@@ -69,6 +68,8 @@ public class GridViewer extends JPanel {
                     JLabel color = new JLabel();
                     color.setPreferredSize( new Dimension (labelWidth, labelHeight));
                     color.setBackground(AVAILABLE);
+                    color.setForeground( new Color (220,200,200));
+                    color.setFont( new Font("Times New Roman", Font.BOLD, 14));
                     color.setOpaque(true);              
                     colors[i][j] = color;
                     this.add(color);
@@ -118,6 +119,8 @@ public class GridViewer extends JPanel {
             JLabel color;
             int status;
 
+            this.nameCourses();
+
             for (int i = 0; i < tempSchedule.length; i++){
                 for (int j = 0; j < tempSchedule[0].length; j++){
                     color = (JLabel)colors[i][j];
@@ -125,14 +128,35 @@ public class GridViewer extends JPanel {
 
                     if (status == Schedule.AVAILABLE && !(color.getBackground().equals(AVAILABLE)) ){
                         color.setBackground(AVAILABLE);
+                        color.setText("");
                     }
                     else if (status == Schedule.TAKEN  && !(color.getBackground().equals(TAKEN)) ){
                         color.setBackground(TAKEN);
                     }
                     else if (status >= Schedule.CONFLICT  && !(color.getBackground().equals(CONFLICT)) ){
                         color.setBackground(CONFLICT);
+                        color.setText("CONFLICT");
                     }
                 }
+            }
+
+            this.revalidate();
+            this.repaint();
+        }
+    }
+
+    /**
+     * Adds the title of courses to their respective presenters.
+     */
+     
+    private void nameCourses(){
+        for ( Course course : schedule.getCourses() ){
+            String text = String.format( " %s %s", course.getTitle(),course.getSection() );
+            for ( Lesson lesson : course.getLessons() ){
+                int time = lesson.getTime();
+                int day = lesson.getDay();
+                JLabel color =(JLabel)colors[time][day];
+                color.setText(text);
             }
         }
     }

@@ -77,7 +77,7 @@ public class CourseSelection extends JScrollPane{
 
     private void addCheckBox( Course course ){
         JCheckBox cBox = new JCheckBox( 
-            String.format( "%s %s %s" , (course.getName()), (course.getSection()), (course.getInstructor()) ), 
+            String.format( "%s %s %s" , (course.getTitle()), (course.getSection()), (course.getInstructor()) ), 
             true
         );
 
@@ -106,12 +106,11 @@ public class CourseSelection extends JScrollPane{
         
         if ( checkBox.isSelected() ){
             activeCourses.addCourse(course);
-            mainFrame.updateSchedule();
         }
         else {
             activeCourses.removeCourse(course);
-            mainFrame.updateSchedule();
         }
+        mainFrame.updateSchedule();
     }
 
     public void setActiveCourses(Schedule activeCourses) {
